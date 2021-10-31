@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {DragDropContext} from 'react-beautiful-dnd';
+import Board from "./board";
+import {useDispatch} from "react-redux";
+import {addTaskToListAtPosition, removeTaskFromList} from "./redux/slice/listsSlice";
+import {moveListToPositionInBoard} from "./redux/slice/boardsSlice";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch();
+
+    const onDragEnd = result => {
+        const {source, destination, draggableId, type} = result;
+        if (!destination) {
+            return;
+        }
+
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
+            return;
+        }
+
+        if (type === 'TASK') {
+            dispatch(removeTaskFromList({
+                listId: source.droppableId,
+                taskIdIndex: source.index
+            }));
+            dispatch(addTaskToListAtPosition({
+                listId: destination.droppableId,
+                taskId: draggableId,
+                newTaskIndex: destination.index
+            }));
+        }
+
+        if (type === 'LIST') {
+            dispatch(moveListToPositionInBoard({
+                listId: draggableId,
+                previousListIndex: source.index,
+                newListIndex: destination.index,
+                boardId: destination.droppableId
+            }));
+        }
+    };
+
+    return (
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Board id={"board-1"}/>
+        </DragDropContext>
+    );
 }
 
 export default App;
