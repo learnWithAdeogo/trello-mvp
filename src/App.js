@@ -3,6 +3,13 @@ import Board from "./board";
 import {useDispatch} from "react-redux";
 import {addTaskToListAtPosition, removeTaskFromList} from "./redux/slice/listsSlice";
 import {moveListToPositionInBoard} from "./redux/slice/boardsSlice";
+import styled from "styled-components";
+import Header from "./Header";
+
+const Container = styled.div`
+    background: rgb(0, 121, 191);
+    height: 100%;
+`;
 
 function App() {
     const dispatch = useDispatch();
@@ -40,9 +47,12 @@ function App() {
     };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Board id={"board-1"}/>
-        </DragDropContext>
+        <Container>
+            <Header/>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Board id={"board-1"}/>
+            </DragDropContext>
+        </Container>
     );
 }
 

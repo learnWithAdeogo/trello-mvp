@@ -5,19 +5,36 @@ import {Droppable} from "react-beautiful-dnd";
 import {useSelector} from "react-redux";
 
 const Container = styled.div`
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 8px;
+  margin-top: 8px;
   height: 100vh;
 `;
 
-const Title = styled.h2`
+const Title = styled.span`
     margin-left: 8px;
+    padding: 0 16px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    height: 32px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; 
+    &:hover,
+    &:focus {
+        background: rgba(255, 255, 255, 0.4);
+    }
+    &:active {
+        background: rgba(255, 255, 255, 0.6);
+        transition: background 0s ease;
+    }
+    transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, color 0.3s ease; 
 `;
 
 const ListContainer = styled.div`
     display: flex;
+    margin-top: 8px;
 `;
 
 const Board = ({id}) => {
