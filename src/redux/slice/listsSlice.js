@@ -27,9 +27,27 @@ export const listsSlice = createSlice({
 
             state.lists[listId].taskIds = taskIdsForList;
         },
+        addTaskToList: (state, action) => {
+            const taskId = action.payload.taskId;
+            const listId = action.payload.listId;
+            const taskIdsForList = Array.from(state.lists[listId].taskIds);
+
+            taskIdsForList.push(taskId);
+
+            state.lists[listId].taskIds = taskIdsForList;
+        },
+        addList: (state, action) => {
+            const listId = action.payload.listId;
+            const listTitle = action.payload.title;
+            state.lists[listId] = {
+                id: listId,
+                title: listTitle,
+                taskIds: []
+            }
+        }
     },
 });
 
-export const {removeTaskFromList, addTaskToListAtPosition} = listsSlice.actions
+export const {removeTaskFromList, addTaskToListAtPosition, addTaskToList, addList} = listsSlice.actions
 
 export default listsSlice.reducer

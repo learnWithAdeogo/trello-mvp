@@ -1,7 +1,7 @@
 import React from 'react';
-import initialData from "./initial-data.json";
 import styled from "styled-components";
 import {Draggable} from "react-beautiful-dnd";
+import {useSelector} from "react-redux";
 
 const Container = styled.div`
   border-radius: 4px;
@@ -14,11 +14,7 @@ const Container = styled.div`
 `;
 
 const Task = ({id, index}) => {
-    const getTask = (id) => {
-        return initialData.tasks[id];
-    }
-
-    const task = getTask(id);
+    const task = useSelector((state) => state.tasks.tasks[id]);
 
     return (
         <Draggable draggableId={id} index={index}>

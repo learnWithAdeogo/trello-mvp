@@ -3,6 +3,8 @@ import List from "./list";
 import styled from "styled-components";
 import {Droppable} from "react-beautiful-dnd";
 import {useSelector} from "react-redux";
+import CreateList from "./create-list";
+import Column from "./column";
 
 const Container = styled.div`
   margin-top: 8px;
@@ -35,6 +37,7 @@ const Title = styled.span`
 const ListContainer = styled.div`
     display: flex;
     margin-top: 8px;
+    overflow-x: auto;
 `;
 
 const Board = ({id}) => {
@@ -43,10 +46,12 @@ const Board = ({id}) => {
     return (
         <Container>
             <Title>{board.title}</Title>
-            <Droppable droppableId={id} direction={'horizontal'}  type={"LIST"}>
+            <Droppable droppableId={id} direction={'horizontal'} type={"LIST"}>
                 {provided => <ListContainer ref={provided.innerRef} {...provided.droppableProps}>
                     {board.listIds.map((listId, index) => <List key={listId} id={listId} index={index}/>)}
                     {provided.placeholder}
+                    {/*Right here*/}
+                    <Column><CreateList boardId={id}/></Column>
                 </ListContainer>}
             </Droppable>
         </Container>

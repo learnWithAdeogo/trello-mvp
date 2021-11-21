@@ -1,10 +1,10 @@
 import {DragDropContext} from 'react-beautiful-dnd';
-import Board from "./board";
+import Board from "./components/board";
 import {useDispatch} from "react-redux";
 import {addTaskToListAtPosition, removeTaskFromList} from "./redux/slice/listsSlice";
 import {moveListToPositionInBoard} from "./redux/slice/boardsSlice";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "./components/Header";
 
 const Container = styled.div`
     background: rgb(0, 121, 191);

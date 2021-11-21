@@ -16,12 +16,20 @@ export const boardsSlice = createSlice({
 
             listIdsForBoard.splice(previousListIndex, 1);
             listIdsForBoard.splice(newListIndex, 0, listId);
-            console.log('state', state)
             state.boards[boardId].listIds = listIdsForBoard;
         },
+        addListToBoard: (state, action) => {
+            const listId = action.payload.listId;
+            const boardId = action.payload.boardId;
+            const listIdsForBoard = Array.from(state.boards[boardId].listIds);
+
+            listIdsForBoard.push(listId);
+
+            state.boards[boardId].listIds = listIdsForBoard
+        }
     },
 })
 
-export const {moveListToPositionInBoard} = boardsSlice.actions
+export const {moveListToPositionInBoard, addListToBoard} = boardsSlice.actions
 
 export default boardsSlice.reducer
